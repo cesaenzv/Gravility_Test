@@ -10,12 +10,8 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
-Route::get('/', 'WelcomeController@index');
-
 Route::get('home', 'HomeController@index');
-
-Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
-]);
+Route::get('', 'WelcomeController@index');
+Route::post('home/process', 'HomeController@processData');
+Route::post('home/history', 'HomeController@getHistoryList');
+Route::post('home/input', 'HomeController@getInput');
