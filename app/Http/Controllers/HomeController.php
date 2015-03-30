@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\CubeProcessor\TextProcessor;
+use App\Models\TextManager\TextProcessor;
 use App\Models\CubeProcessor\CubeProcessor;
 use App\Models\Entities\Input;
 use App\Models\Entities\UserCase;

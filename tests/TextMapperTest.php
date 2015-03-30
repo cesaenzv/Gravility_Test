@@ -1,7 +1,6 @@
 <?php
 
-use App\Models\CubeProcessor\TextMapper;
-
+use App\Models\TextManager\TextMapper;
 
 class TextMapperTest extends TestCase
 {
@@ -16,4 +15,5 @@ class TextMapperTest extends TestCase
 		$this->assertInstanceOf('App\Models\Entities\UserCase', TextMapper::UserCaseMapper('4 5'));
 		$this->assertInstanceOf('App\Models\Entities\Operation', TextMapper::OperationMapper('UPDATE 2 2 2 4'));
 	}
+
 }

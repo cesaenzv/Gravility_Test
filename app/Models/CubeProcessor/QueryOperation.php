@@ -30,6 +30,6 @@ class QueryOperation extends AOperationBuilder{
 				}
 			}
 		}
-		return $result;
+		return "".$result."";
 	}
 }

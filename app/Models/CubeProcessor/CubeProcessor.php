@@ -14,9 +14,11 @@ class CubeProcessor {
 
 	public function ProcessCube($_i){
 		try{
+			//$cases = UserCase::where('inputId',$_i->id)->orderBy('id')->get();
 			foreach ($_i->usercases as $_c) {
 				$_caseText = '';
 				$matrix = array();
+				//$opers = Operation::where('testId',$_c->id)->orderBy('id')->get();
 				foreach ($_c->operations as $_o) {
 					$processor = $this->_getOperationProcessor($_c,$_o);
 					$matrix = $processor->ProcessOperation($matrix);
@@ -27,10 +29,10 @@ class CubeProcessor {
 				}
 				$_c->result = $_caseText;
 				$_c->save();
-				return $_i;
 			}
 			$_i->outMessage = "Proceso Calculo Completo";
 			$_i->passed = true;
+			return $_i;
 		}
 		catch(CustomGravilityException $ex){
 			$_i->outMessage = $ex->getMessage();

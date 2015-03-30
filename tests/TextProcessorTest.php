@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\CubeProcessor\TextProcessor;
+use App\Models\TextManager\TextProcessor;
 use App\Models\Entities\Input;
 use App\Models\Entities\Operation;
 use App\Models\Entities\UserCase;
@@ -11,6 +11,13 @@ class TextProcessorTest extends TestCase
 		$text = "1\n4 2\nUPDATE 2 2 2 4\nQUERY 1 1 1 3 3 3";
 		$processor = new TextProcessor();
 		$this->assertInstanceOf('App\Models\Entities\Input',$processor->ValidateText($text));
+	}
+
+	public function test_Errors(){
+		$text = "0\n4 2\nUPDATE 2 2 2 4\nQUERY 1 1 1 3 3 3";
+		$processor = new TextProcessor();
+		$this->setExpectedException('\App\Models\Utils\CustomGravilityException', 'Número de casos de pruebas no aceptados');
+		$processor->ValidateText($text);
 	}
 
 }
