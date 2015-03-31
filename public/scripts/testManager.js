@@ -5,11 +5,13 @@ $(document).ready(function(){
 
 var bindEvents = function(){
 	$('#formText').submit(sendData);	
+	
+}, bindList = function(){
 	$('a.inputItem').on('click', function(){
 		var data = {id : $(this).attr('id-attr')}
 		ajaxMod.doAjaxRequest({
 			data: data,
-			url: 'home/input',
+			url: 'home/get-input',
 			noModal : false,
 			callback : function(rsp){
 				if(rsp.status == 1){
@@ -42,7 +44,7 @@ var bindEvents = function(){
 				getHistory();
 			}
 		},
-		url: 'home/process',
+		url: 'home/process-data',
 		noModal : false
 	});
 },getHistory = function(){	
@@ -62,23 +64,10 @@ var bindEvents = function(){
 						inputItem.addClass('list-group-item-danger');
 					list.append(inputItem);
 				});
-				$('a.inputItem').on('click', function(){
-					var data = {id : $(this).attr('id-attr')}
-					ajaxMod.doAjaxRequest({
-						data: data,
-						url: 'home/input',
-						noModal : false,
-						callback : function(rsp){
-							if(rsp.status == 1){
-								$("#textIn").val(rsp.obj.textIn);
-								$("#textOut").val(rsp.obj.textOut);
-							}
-						}
-					});
-				});
 			}
+			bindList();
 		},
-		url: 'home/history',
+		url: 'home/get-history-list',
 		noModal : true
 	});
 };

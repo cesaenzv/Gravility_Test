@@ -23,7 +23,7 @@ class HomeController extends Controller {
 		return view('home');
 	}
 
-	public function processData(Request $request){				
+	public function post_processData(Request $request){				
 		try{			
 			$processor = new TextProcessor();
 			$input = $processor->ValidateText($request->input('textInput'));
@@ -39,7 +39,7 @@ class HomeController extends Controller {
 
 	}
 
-	public function getHistoryList(){
+	public function post_getHistoryList(){
 		try{
 			$inputs = Input::orderBy('id', 'desc')->get();
 			$inputs->load(['usercases' => function($query)
@@ -53,7 +53,7 @@ class HomeController extends Controller {
 
 	}
 
-	public function getInput(Request $request){
+	public function post_getInput(Request $request){
 		try{
 
 			$input = Input::findOrFail($request->input("id"));	

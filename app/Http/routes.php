@@ -11,7 +11,5 @@
 |
 */
 Route::get('home', 'HomeController@index');
-Route::get('', 'WelcomeController@index');
-Route::post('home/process', 'HomeController@processData');
-Route::post('home/history', 'HomeController@getHistoryList');
-Route::post('home/input', 'HomeController@getInput');
+Route::get('', 'HomeController@index');
+Route::controller('home','HomeController');
