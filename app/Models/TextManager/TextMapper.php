@@ -6,9 +6,17 @@ use App\Models\Entities\UserCase;
 use App\Models\Entities\Operation;
 use App\Models\Entities\Operationtype;
 use Illuminate\Database\Eloquent\Model;
+use Exception;
 
 class TextMapper {
 
+	/**
+	 * Metodo estatico encargado de procesar string y retornar objeto de tipo Operation
+	 *
+	 * @param  String   $line  Texto ingresado por el usuario
+	 * @throws CustomGravilityException Si el texto es incorrecto
+	 * @return Input 	Objeto resultante del texto procesado
+	 */ 
 	public static function OperationMapper($line){
 		$_arr = explode(" ", $line);
 		if(self::_checkArrayEmpty($_arr))
@@ -22,6 +30,13 @@ class TextMapper {
 		return $operation; 
 	}
 
+	/**
+	 * Metodo estatico encargado de procesar string y retornar objeto de tipo UserCase
+	 *
+	 * @param  String   $line  Texto ingresado por el usuario
+	 * @throws CustomGravilityException Si el texto es incorrecto
+	 * @return Input  UserCase resultante del texto procesado
+	 */ 
 	public static function UserCaseMapper($line){
 		$_arr = explode(" ", $line);
 		if(self::_checkArrayEmpty($_arr))
@@ -36,6 +51,12 @@ class TextMapper {
 		return $test;
 	}
 
+	/**
+	 * Metodo encargado de validar si el array tiene un elementos vacios
+	 *
+	 * @param  array  $_arr  Array resultande del string procesado
+	 * @return bool  
+	 */ 
 	private static function _checkArrayEmpty($_arr){
 		return (count(array_filter(array_map('trim',$_arr), 'strlen' )) < count($_arr));
 	}

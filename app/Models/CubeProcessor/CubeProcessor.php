@@ -1,7 +1,7 @@
 <?php namespace App\Models\CubeProcessor;
 
 use App\Models\Utils\CustomGravilityException;
-use App\Models\CubeProcessor\AOperationBuilder;
+use App\Models\CubeProcessor\AOperationProcessor;
 use App\Models\CubeProcessor\UpdateOperation;
 use App\Models\CubeProcessor\QueryOperation;
 use App\Models\Entities\Input;
@@ -9,16 +9,21 @@ use App\Models\Entities\UserCase;
 use App\Models\Entities\Operation;
 use App\Models\Entities\Operationtype;
 use Illuminate\Database\Eloquent\Model;
+use Exception;
 
 class CubeProcessor {
 
+	/**
+	 * Procesa todo el input entregado por el usuario
+	 *
+	 * @param  Input    $_i  Input ingresado por el usuario y transformado en objeto
+	 * @return Input    $_i  Input calculado
+	 */ 
 	public function ProcessCube($_i){
 		try{
-			//$cases = UserCase::where('inputId',$_i->id)->orderBy('id')->get();
 			foreach ($_i->usercases as $_c) {
 				$_caseText = '';
 				$matrix = array();
-				//$opers = Operation::where('testId',$_c->id)->orderBy('id')->get();
 				foreach ($_c->operations as $_o) {
 					$processor = $this->_getOperationProcessor($_c,$_o);
 					$matrix = $processor->ProcessOperation($matrix);
@@ -39,13 +44,21 @@ class CubeProcessor {
 			$_i->passed = false;
 		}
 		catch(Exception $ex){
-			$_i->outMessage = "Error inesperado - ".$ex->getMessage();
+			$_i->outMessage = "CubeProcesor Error inesperado - ".$ex->getMessage();
 			$_i->passed = false;
 		}
 		$_i->save();
 		return $_i;
 	}
 
+	/**
+	 * Does something interesting
+	 *
+	 * @param  UserCase   $_c  Where something interesting takes place
+	 * @param  Operation  $_o How many times something interesting should happen
+	 * @throws CustomGravilityException Si no hay procesador para esta operación
+	 * @return Status
+	 */ 
 	private function _getOperationProcessor ($_c,$_o){
 		switch($_o->operationTypeId){
 			case 1:

@@ -1,13 +1,15 @@
 <?php namespace App\Models\CubeProcessor;
 
+use App\Models\CubeProcessor\AOperationProcessor;
 use App\Models\Utils\CustomGravilityException;
 use App\Models\Entities\Input;
 use App\Models\Entities\UserCase;
 use App\Models\Entities\Operation;
 use App\Models\Entities\Operationtype;
 use Illuminate\Database\Eloquent\Model;
+use Exception;
 
-class QueryOperation extends AOperationBuilder{
+class QueryOperation extends AOperationProcessor{
 
 	public function ValidateText(){
 		$_arr =explode(' ', $this->_o->operationText);
